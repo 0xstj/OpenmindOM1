@@ -22,6 +22,61 @@
 
 ## Getting Started
 
+### Quick API Test (LLM Chat)
+
+A simple example to verify your OpenMind API key is working with the LLM chat endpoint.  
+This helps developers quickly test their setup before moving into full agent workflows.
+
+> Per API guidelines, authentication works using:
+> - `x-api-key: YOUR_API_KEY`, or  
+> - `Authorization: Bearer YOUR_API_KEY`  
+> WebSocket connections use the query parameter format shown in the docs.
+
+#### curl Example
+
+```bash
+curl -X POST "https://api.openmind.org/api/core/openai/chat/completions" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "model": "gpt-4o-mini",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Say hello to OM1!"}
+    ]
+  }'
+```
+
+// Node >=18 (built-in fetch)
+const response = await fetch(
+  "https://api.openmind.org/api/core/openai/chat/completions",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.OM_API_KEY
+      // OR: Authorization: `Bearer ${process.env.OM_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "You are a helpful assistant." },
+        { role: "user", content: "Say hello to OM1!" }
+      ]
+    })
+  }
+);
+
+console.log(await response.json());
+
+#### Notes
+
+- Endpoint format: POST /api/core/{provider}/chat/completions
+
+- Replace 'openai' with another provider (e.g., xai, nearai) if needed.
+
+- Useful for quickly checking connectivity and model response.
+
 To get started with OM1, let's run the Spot agent. Spot uses your webcam to capture and label objects. These text captions are then sent to the LLM, which returns `movement`, `speech` and `face` action commands. These commands are displayed on WebSim along with basic timing and other debugging information.
 
 ### Package Management and VENV
