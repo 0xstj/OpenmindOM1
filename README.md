@@ -46,7 +46,9 @@ curl -X POST "https://api.openmind.org/api/core/openai/chat/completions" \
     ]
   }'
 ```
+#### Node.js (fetch) Example
 
+```javascript
 // Node >=18 (built-in fetch)
 const response = await fetch(
   "https://api.openmind.org/api/core/openai/chat/completions",
@@ -68,6 +70,8 @@ const response = await fetch(
 );
 
 console.log(await response.json());
+```
+
 
 #### Notes
 
